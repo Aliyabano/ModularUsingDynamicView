@@ -5,9 +5,13 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dynamicView.utils.ApiResponses
+import com.example.modularusingdynamicview.adapter.CategoryAdapter
+import com.example.modularusingdynamicview.model.Response.RandomCocktailResponse
 import com.example.modularusingdynamicview.viewModel.MainVM
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
@@ -32,7 +36,9 @@ class MainActivity : AppCompatActivity() {
                     }
                     is ApiResponses.Success -> {
                         Log.e("Response","${it.data!!.drinks}")
-
+                        val cAdapter = CategoryAdapter(it.data!!)
+                        main_rv.layoutManager = LinearLayoutManager(this@MainActivity)
+                        main_rv.adapter = cAdapter
 
                     }
                 }
